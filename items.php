@@ -41,6 +41,11 @@
                     <th>Price</th>
                     <th class="updateItemHeader">Update</th>
                     <th class="deleteItemHeader">Delete</th>
+                    <th class="deleteMultipleHeader">
+                        <button onclick="onDeleteMultiple()">
+                            Delete selected
+                        </button>
+                    </th>
                 </tr>
                 
             </table>
@@ -55,8 +60,19 @@
                     </div>
                 </div>
             </div>
-            
 
+            <div onclick="cancel()" id="deleteMultipleModal" class="modal">
+                <div class="modalContent">
+                    <form id="hiddenInputs" onsubmit="return false">
+                        <p class="modalText"></p>
+                        <div class="actions">
+                            <button onclick="deleteItems()" type="button" class="confirmBtn">Delete</button>
+                            <button onclick="cancel()" type="reset" class="cancelBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
             <div onclick="cancel()" id="updateModal" class="modal">
                 <div class="modalContent">
                     <p class="modalText"></p>
@@ -79,7 +95,7 @@
                             class="priceInput"
                             placeholder="Price DKK"
                         >
-                        <!-- <input type="text" class="hiddenInput" name="item_id"> -->
+                        <input type="hidden" name="item_id" class="idInput">
                         <div class="actions">
                             <button type="submit" class="confirmBtn">Update</button>
                             <button onclick="cancel()" type="reset" class="cancelBtn">Cancel</button>
