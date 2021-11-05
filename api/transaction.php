@@ -1,6 +1,6 @@
 <?php
+//Validate the id to see if the sent id is a valid id
 // DELETE MULTIPLE PRODUCTS     
-//Validation always
 
 require_once(__DIR__.'/../globals.php');
 $db = _api_db();
@@ -11,10 +11,10 @@ try{
     foreach ($_POST['delete_item'] as $itemId)
     {
         try{
-            $q1 = $db->prepare('SELECT item_id FROM items WHERE item_id =  :item_id');
-            $q1->bindValue(':item_id', $itemId);
-            $q1->execute();
-            $row = $q1->fetch();
+            $q = $db->prepare('SELECT item_id FROM items WHERE item_id =  :item_id');
+            $q->bindValue(':item_id', $itemId);
+            $q->execute();
+            $row = $q->fetch();
             if(!$row){
                 $db->rollBack();
                 http_response_code(400);
@@ -43,7 +43,6 @@ try{
     echo "deleted ".count($_POST['delete_item'])." Items";
     $db->commit();
 } catch(Exception $ex){
-    // You must always rollback
     http_response_code(500);
     echo "System under maintainance".__LINE__;
     $db->rollBack();
